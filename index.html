@@ -14,19 +14,21 @@
 }
 
 body {
-  background: linear-gradient(270deg, #0a0a0f, #1a0033, #0a0a0f);
-  background-size: 600% 600%;
-  animation: bgMove 10s infinite;
+  background: #0a0a0f;
   color: white;
   text-align: center;
+  overflow-x: hidden;
 }
 
-@keyframes bgMove {
-  0% { background-position: 0% }
-  50% { background-position: 100% }
-  100% { background-position: 0% }
+/* CANVAS */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
+/* HEADER */
 header {
   padding: 40px 20px;
   animation: fadeDown 1s ease;
@@ -64,6 +66,7 @@ h1 {
   padding: 20px;
 }
 
+/* CARDS */
 .card {
   background: rgba(255,255,255,0.05);
   border-radius: 15px;
@@ -84,6 +87,7 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* BOTÕES */
 .btn {
   display: block;
   padding: 15px;
@@ -102,12 +106,14 @@ h1 {
 footer {
   margin: 30px 0;
   color: #aaa;
-  animation: fadeUp 2s ease;
 }
 </style>
 </head>
 
 <body>
+
+<!-- CANVAS DAS PARTÍCULAS -->
+<canvas id="matrix"></canvas>
 
 <header>
 
@@ -158,6 +164,45 @@ Raspberry Pi • Embedded
 <footer>
 ✨ Construindo soluções com código, dados e hardware
 </footer>
+
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+const letters = "01{}<>/\\[]+=-";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+
+for (let x = 0; x < columns; x++) {
+  drops[x] = 1;
+}
+
+function draw() {
+  ctx.fillStyle = "rgba(10,10,15,0.05)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#8A2BE2";
+  ctx.font = fontSize + "px monospace";
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = letters[Math.floor(Math.random() * letters.length)];
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+
+    drops[i]++;
+  }
+}
+
+setInterval(draw, 33);
+</script>
 
 </body>
 </html>
