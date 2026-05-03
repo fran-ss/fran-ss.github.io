@@ -10,7 +10,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 a {
   text-decoration: none;
@@ -77,16 +77,47 @@ h1 {
   backdrop-filter: blur(10px);
   transition: 0.4s;
   animation: fadeUp 1s ease;
+  text-align: left; /* Melhor legibilidade para listas */
+}
+
+.card h2 {
+  color: #8A2BE2;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .card:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform: translateY(-5px) scale(1.01);
   box-shadow: 0 0 20px #8A2BE2;
 }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ESTILO PARA OS CURSOS */
+.course-item {
+  border-left: 3px solid #8A2BE2;
+  padding-left: 15px;
+  margin-bottom: 20px;
+}
+
+.course-item h3 {
+  font-size: 1.1em;
+  color: #fff;
+}
+
+.course-item span {
+  font-size: 0.85em;
+  color: #8A2BE2;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.course-item p {
+  font-size: 0.9em;
+  color: #ccc;
 }
 
 /* BOTÕES */
@@ -97,9 +128,8 @@ h1 {
   background: linear-gradient(45deg, #8A2BE2, #6a1cb0);
   border-radius: 10px;
   font-weight: bold;
-  
-  color: #1a0033; /* 🔥 texto mais escuro */
-  text-decoration: none; /* ❌ remove linha */
+  text-align: center;
+  color: #1a0033;
   transition: 0.3s;
 }
 
@@ -109,7 +139,7 @@ h1 {
 }
 
 footer {
-  margin: 30px 0;
+  padding: 30px 0;
   color: #aaa;
 }
 </style>
@@ -117,51 +147,61 @@ footer {
 
 <body>
 
-<!-- CANVAS DAS PARTÍCULAS -->
 <canvas id="matrix"></canvas>
 
 <header>
-
 <img src="https://raw.githubusercontent.com/fran-ss/fran-ss.github.io/main/WhatsApp%20Image%202026-04-28%20at%2021.35.59.jpeg" width="250"/>
-
 <h1>💜 Franciane</h1>
 <p class="subtitle">Backend • Data • Embedded Systems</p>
-
 </header>
 
 <div class="container">
 
 <div class="card">
 <h2>👩‍💻 Sobre mim</h2>
-<p>
+<p style="text-align: center;">
 Desenvolvedora formada em Sistemas para Internet pelo IFMA e residente em Sistemas Embarcados.
 Atuo com backend, dados e hardware criando soluções reais.
 </p>
 </div>
 
 <div class="card">
-<h2>🚀 Projeto GASMAR</h2>
-<p>Plataforma digital com análise de consumo e gestão de usuários.</p>
-<a class="btn" href="https://drive.google.com" target="_blank">▶️ Ver demo</a>
+<h2>🎓 Residências Tecnológicas (EmbarcaTech)</h2>
+
+<div class="course-item">
+  <span>IFMA / SOFTEX • 240h • 2025</span>
+  <h3>Residência em FPGA</h3>
+  <p>Foco em descrição de hardware (Verilog/VHDL), arquitetura de plataformas adaptativas e circuitos digitais complexos.</p>
+</div>
+
+<div class="course-item">
+  <span>IFMA / SOFTEX • 240h • 2025</span>
+  <h3>Residência em Software Embarcado</h3>
+  <p>Desenvolvimento para microcontroladores, RTOS (Sistemas Operacionais de Tempo Real) e projetos aplicados de IoT.</p>
+</div>
+</div>
+
+<div class="card">
+<h2>🚀 Projetos em Destaque</h2>
+<p style="margin-bottom: 15px;"><strong>GASMAR:</strong> Plataforma digital com análise de consumo e gestão de usuários (BFF, JWT, Dashboards).</p>
+<a class="btn" href="https://drive.google.com" target="_blank">▶️ Ver detalhes do projeto</a>
 </div>
 
 <div class="card">
 <h2>💻 Tecnologias</h2>
-<p>
-C • C++ • Python • Java • C# <br>
-Node • .NET • PostgreSQL <br>
-Raspberry Pi • Embedded
+<p style="text-align: center; line-height: 1.6;">
+<strong>Linguagens:</strong> C • C++ • Python • C# • Java • Verilog • VHDL<br>
+<strong>Frameworks/DB:</strong> .NET • Django • Node • PostgreSQL • BigQuery<br>
+<strong>Hardware/Cloud:</strong> FPGA • RTOS • Raspberry Pi • Docker • GCP
 </p>
 </div>
 
 <div class="card">
 <h2>🔗 Links</h2>
-
 <a class="btn" href="https://github.com/fran-ss" target="_blank">🚀 GitHub</a>
 <a class="btn" href="https://www.linkedin.com/in/franciane-santos-da-hora-757939289" target="_blank">💼 LinkedIn</a>
 <a class="btn" href="mailto:francianesachos@gmail.com">📩 Email</a>
 <a class="btn" href="https://www.instagram.com/franciane_ss" target="_blank">📸 Instagram</a>
-
 </div>
 
 </div>
@@ -201,12 +241,16 @@ function draw() {
     if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
       drops[i] = 0;
     }
-
     drops[i]++;
   }
 }
 
 setInterval(draw, 33);
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
